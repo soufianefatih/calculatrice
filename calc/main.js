@@ -3,7 +3,10 @@
  const clearLastEl = document.querySelector(".clearLastEl");
 
  const clear = document.querySelector(".clear");
- const dot = document.querySelector(".dot");
+
+ const dot = document.querySelector(".changeop");
+
+ const numbersEl = document.querySelectorAll(".number");
 
 // On stocke la valeur de l'écran "précédent"
 let precedent = 0;
@@ -13,7 +16,7 @@ let affichage = "";
 // let  newaffichage = "";
 
 // On stocke l'opération
-let op = null;
+let op = "";
 
 let point = false ;
 // let newaffichage = "";
@@ -36,7 +39,12 @@ function gererTouches(){
   let touche = this.innerText ;
     // console.log(this.innerText );
 
-    
+    if (touche === "." && point === false) {
+      point = true ;
+
+    }else if (touche === "." && point) {
+      return ;
+    }
    
       
    
@@ -77,7 +85,9 @@ function gererTouches(){
             
                 ecranE.innerText = precedent ;
                  
-                op = touche;
+                op = (op === touche && !point)  ? touche :touche + (point = false)  ;
+              
+                op = touche ;
                 
                 affichage = "" ;
 
@@ -93,7 +103,7 @@ function gererTouches(){
             
                 precedent = 0;
 
-                // affichage = 0;
+                // affichage = "";
 
                 break;
       
@@ -106,15 +116,20 @@ function gererTouches(){
         clear.addEventListener("click", () => {
          
            affichage = "";  
-          ecranE.innerText = 0;
+           ecranE.innerText = 0;
+           point = false ;
           
         });
 
 
-        dot.addEventListener("change", () => {
+      //   dot.addEventListener("click", () => {
          
-
-       });
+      //            if (touche === "." && !point) {
+      //              point = true;
+      //            }elseif(touche === "." && point){
+      //              return;
+      //            }
+      //  });
 
 
        clearLastEl.addEventListener("click", () => {
@@ -124,6 +139,10 @@ function gererTouches(){
            
 
       });
+      
+
+
+      
 
 
 
@@ -131,6 +150,10 @@ function gererTouches(){
  
     
 }
+
+
+
+
 
 
 
